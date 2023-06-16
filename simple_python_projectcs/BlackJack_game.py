@@ -1,3 +1,4 @@
+import random
 cards = []
 
 suits = [ "Hearts", "Diamonds", "Spades", "Clubs" ]
@@ -9,6 +10,11 @@ for suit in suits:
   for rank in ranks:
     cards.append([suit,rank])
 
-print(cards)
+def shuffle():
+  random.shuffle(cards)
+
+shuffle()
+card = cards.pop()
+print(card)
    
  
