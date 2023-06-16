@@ -5,8 +5,7 @@ def get_choices():
 	options = ["rock", "paper", "scissors"]
 	computer_choice = random.choice(options)
 	choices = {"player": player_choice, "computer": computer_choice}
-	return choices
-	
+	return choices	
 	
 
 def check_win(player,computer):
@@ -27,7 +26,6 @@ def check_win(player,computer):
 	
 
 # main function
-
 choices = get_choices()
 result = check_win(choices["player"], choices["computer"])
 print(result)
