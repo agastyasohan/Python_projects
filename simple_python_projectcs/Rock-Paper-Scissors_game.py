@@ -5,7 +5,7 @@ def get_choices():
 	options = ["rock", "paper", "scissors"]
 
 	while True:
-		player_choice = input("Enter a choice (rock, paper, scissors):").lower()
+		player_choice = input("Enter a choice (rock, paper, scissors):").strip().lower()
 		if player_choice in options:
 			computer_choice = random.choice(options)
 			choices = {"player": player_choice, "computer": computer_choice}
@@ -15,7 +15,7 @@ def get_choices():
 	
 
 def check_win(player,computer):
-	print(f"you chose {player}, computer chose {computer}\n")
+	print(f"\n you chose {player}, computer chose {computer}\n")
 	
 	if player == computer:
 		return "'It's a tie!'"
