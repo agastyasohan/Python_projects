@@ -85,15 +85,62 @@ class Hand:
         print()
 
 
-deck=Deck()
-deck.shuffle()
+class Game:
+    def play(self):
+        while True:
+            deck = Deck()
+            deck.shuffle()
 
+            player_hand = Hand()
+            dealer_hand = Hand(dealer = True)
 
-player_hand = Hand()
-player_hand.add_card(deck.deal(2))
-player_hand.display()
+            
+            player_hand.add_card(deck.deal(2))
+            dealer_hand.add_card(deck.deal(2))
+            print()
+            player_hand.display()
+            dealer_hand.display()
 
-dealer_hand = Hand(dealer = True)
-dealer_hand.add_card(deck.deal(2))
-dealer_hand.display()
+            while True:  # player's turn
+                choice = input("choose an action:- (1)Hit, (2)Stand:")
+                if choice == "1":
+                    player_hand.add_card(deck.deal(1))
+                    player_hand.display()
+                    if player_hand.get_value() > 21:
+                        print("Bust!. You lose")
+                        break
+                    elif player_hand.get_value() == 21:
+                        print("BlackJack!")
+                        break
+                elif choice == "2":
+                    break
+                else:
+                    print ("Invalid action!. try again.")
 
+            if player_hand.get_value() <= 21:  # dealer's turn
+                while dealer_hand.get_value()<17:
+                    dealer_hand.add_card(deck.deal(1))
+
+                dealer_hand.display(show_all_cards = True)
+
+                player_value = player_hand.get_value()
+                dealer_value = dealer_hand.get_value()
+
+                print(f"Dealer's Value: {dealer_value}")
+
+                if dealer_value == player_value:
+                    print(" It's Tie! ")
+                elif dealer_value > player_value:
+                    print(" Busted! ")
+                else:
+                    print(" Yeah...You Won! ")
+
+            play_again = input("New Game? (y/n): ")
+            if play_again.lower() != "y":
+                print("Nice Game!.")
+                break
+    
+
+# start game
+game = Game()
+game.play()
