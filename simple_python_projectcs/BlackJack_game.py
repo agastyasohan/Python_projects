@@ -37,7 +37,7 @@ class Deck:
     cards_dealt = []
     for x in range(number):
       if(len(self.cards)>0):
-        card = self.cards.pop()
+        card = self.cards.pop(0)
         cards_dealt.append(card)
 
     return cards_dealt
@@ -45,11 +45,11 @@ class Deck:
 class Hand:
     def __init__(self, dealer=False):
         self.cards = []
-        self.value = 0
         self.dealer = dealer
 
     def add_card(self, card_list):
         self.cards.extend(card_list)
+        
 
     def calculate_value(self):
         self.value = 0
@@ -61,8 +61,9 @@ class Hand:
             if card.rank["rank"] == "A":
                 has_ace = True
 
-        if has_ace and self.value > 21:
-            self.value -= 10
+        # Adjust the value if the hand has aces
+        while has_ace and self.value < 11:
+            self.value += 10
 
     def get_value(self):
         self.calculate_value()
@@ -127,18 +128,26 @@ class Game:
                 dealer_value = dealer_hand.get_value()
 
                 print(f"Dealer's Value: {dealer_value}")
+                print()
 
                 if dealer_value == player_value:
                     print(" It's Tie! ")
+                elif dealer_value > 21:
+                    print ("Yeah...You Won!. Dealer Busted!")
                 elif dealer_value > player_value:
                     print(" Busted! ")
                 else:
                     print(" Yeah...You Won! ")
 
+            print()
             play_again = input("New Game? (y/n): ")
+            print()
             if play_again.lower() != "y":
-                print("Nice Game!.")
+                print("See you next time! Nice game.")
                 break
+            else:
+                print("*"*30)
+                print("Starting a new game...")
     
 
 # start game
