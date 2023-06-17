@@ -153,3 +153,19 @@ class Game:
 # start game
 game = Game()
 game.play()
+
+
+# implemented a simple blackjack game using object-oriented programming in Python. It consists of several classes: Card, Deck, Hand, and Game.
+
+# The Card class represents a playing card with attributes for its suit and rank. It has a __str__ method to provide a human-readable representation of the card.
+
+# The Deck class represents a deck of cards. It initializes the deck with 52 cards, shuffles them, and provides methods to deal cards and display the remaining cards.
+
+# The Hand class represents a player's or dealer's hand. It can add cards, calculate the total value of the hand, and display the cards in the hand. The Hand class also handles the special case of an Ace card, adjusting its value based on the current hand.
+
+# The Game class controls the flow of the game. It creates an instance of the Deck class, shuffles the cards, and deals two cards each to the player and the dealer. 
+# It then prompts the player to choose an action (hit or stand) and updates the player's hand accordingly. The game continues until the player stands, goes bust (total value exceeds 21), or gets a blackjack (total value of 21). 
+# After the player's turn, the dealer takes their turn automatically, hitting until their hand value reaches 17 or higher. 
+# Finally, the game determines the winner and asks the player if they want to play again.
+
+# By running the Game class's play method, the blackjack game starts, allowing players to enjoy the classic card game.
