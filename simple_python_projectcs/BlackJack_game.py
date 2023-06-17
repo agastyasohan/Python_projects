@@ -6,7 +6,9 @@ class Card:
     self.suit = suit
   
   def __str__(self):
-    return f"{self.rank['rank']} of {self.suit}"
+      return f"{self.rank['rank']} of {self.suit}"
+
+
 class Deck:
   def __init__(self):
 
@@ -20,8 +22,13 @@ class Deck:
     for suit in suits:
       for rank in ranks:
         self.cards.append(Card(suit,rank))
+  
 
+  def display_cards(self):
+        for card in self.cards:
+            print(card)
 
+  
   def shuffle(self):
     if(len(self.cards)>1):
       random.shuffle(self.cards)
@@ -35,8 +42,58 @@ class Deck:
 
     return cards_dealt
 
-deck=Deck()
+class Hand:
+    def __init__(self, dealer=False):
+        self.cards = []
+        self.value = 0
+        self.dealer = dealer
 
-for card in deck.cards:
-  print(card)
+    def add_card(self, card_list):
+        self.cards.extend(card_list)
+
+    def calculate_value(self):
+        self.value = 0
+        has_ace = False
+ 
+        for card in self.cards:
+            card_value = int(card.rank["value"])
+            self.value += card_value
+            if card.rank["rank"] == "A":
+                has_ace = True
+
+        if has_ace and self.value > 21:
+            self.value -= 10
+
+    def get_value(self):
+        self.calculate_value()
+        return self.value
+
+    def display(self,show_all_cards = False):
+
+        if self.dealer:
+            print("Dealer's Hand: ")
+            for index,card in enumerate(self.cards):
+                if index == 0 and not show_all_cards:
+                    print("Face Down Card!")
+                else:
+                    print(card)
+        else:
+            print("Player's Hand: ")
+            for card in self.cards:
+                print(card)
+            print("value: ", self.get_value())
+        print()
+
+
+deck=Deck()
+deck.shuffle()
+
+
+player_hand = Hand()
+player_hand.add_card(deck.deal(2))
+player_hand.display()
+
+dealer_hand = Hand(dealer = True)
+dealer_hand.add_card(deck.deal(2))
+dealer_hand.display()
 
